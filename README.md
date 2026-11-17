@@ -30,6 +30,7 @@ generates driving reasoning and 64 future poses at 0.1-second intervals.
 - [Run a PhysicalAI-AV navigation example](#run-a-physicalai-av-navigation-example)
 - [Notebook inference](#notebook-inference)
   - [Freeform VQA](#freeform-vqa)
+  - [Continuous open-loop evaluation](#continuous-open-loop-evaluation)
 - [Download the model for local use](#download-the-model-for-local-use)
 - [Sampling settings](#sampling-settings)
 - [Dataset input profile](#dataset-input-profile)
@@ -173,6 +174,17 @@ Set `QUESTION` in the VQA section. Set `MAX_VQA_TOKENS` to limit the answer leng
 For example, ask how the ego vehicle should drive or which hazards are visible.
 The VLM generates text without trajectory diffusion. The prompt contains camera
 names, time labels, images, and the question.
+
+### Continuous open-loop evaluation
+
+The [continuous evaluation notebook](notebooks/continuous_open_loop_evaluation.ipynb)
+runs the model at every t0 across the example clip, one second apart by default. It
+compares each prediction with the logged future path and with a constant-velocity
+baseline, and reports ADE, FDE, and L2 errors at each t0, the time of each model call,
+and the peak GPU memory. It can also render an animation of the front camera next to
+the latest plan. Install the `notebook` extra as above, or run it on Google Colab:
+
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/NVlabs/alpamayo2-edge/blob/main/notebooks/continuous_open_loop_evaluation.ipynb)
 
 ## Download the model for local use
 
